@@ -1,0 +1,54 @@
+{
+  "name": "wopi-node",
+  "version": "1.0.0",
+  "description": "Sample WOPI host implementation in Node",
+  "main": "dist/server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.0",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0",
+    "typescript": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.3",
+    "@types/dotenv": "^4.0.0",
+    "@types/express": "^4.0.35",
+    "@types/express-session": "^1.15.0",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.31",
+    "@types/request": "0.0.43",
+    "nodemon": "^1.11.0",
+    "tslint": "^5.4.3"
+  },
+  "scripts": {
+    "start": "npm run build && npm run watch",
+    "build": "npm run build-sass && npm run build-ts && npm run tslint",
+    "serve": "node dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run watch-ts\" \"nodemon dist/server.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build-sass": "echo \"Info: No sass involved\"",
+    "watch-sass": "echo \"Info: No sass involved\"",
+    "tslint": "echo \"Info: No tslint involved\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coatsy/wopi-node.git"
+  },
+  "keywords": [
+    "WOPI",
+    "Office Online"
+  ],
+  "author": "Andrew Coates (@coatsy)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coatsy/wopi-node/issues"
+  },
+  "homepage": "https://github.com/coatsy/wopi-node#readme"
+}
