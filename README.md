@@ -6,3 +6,9 @@ This repository contains an application that integrates with Office Online for v
 
 ## Structure
 The inspiration for the structure of this sample came from the excellent [TypeScript Node Starter Project](https://github.com/Microsoft/TypeScript-Node-Starter) and the C# WOPI Host reference implementation [PnP-WOPI](https://github.com/OfficeDev/PnP-WOPI)
+
+
+# Other Resources
+In addition to the excellent [TypeScript Node Starter Project](https://github.com/Microsoft/TypeScript-Node-Starter) and the C# WOPI Host reference implementation [PnP-WOPI](https://github.com/OfficeDev/PnP-WOPI), I found the following useful
+
+- [TypeScript 2 + Express + Node.js](http://brianflove.com/2016/11/08/typescript-2-express-node/) - Brian Love

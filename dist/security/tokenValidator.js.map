@@ -1,0 +1,1 @@
+{"version":3,"file":"tokenValidator.js","sourceRoot":"","sources":["../../src/security/tokenValidator.ts"],"names":[],"mappings":";;AAEW,QAAA,YAAY,GAAG,CAAC,GAAY,EAAE,GAAa,EAAE,IAAmB;IACvE,EAAE,CAAC,CAAC,IAAI,CAAC,CAAC,CAAC;QACP,OAAO,CAAC,GAAG,CAAC,iBAAiB,CAAC,CAAC;QAC/B,MAAM,CAAC,IAAI,EAAE,CAAC;IAClB,CAAC;IACD,eAAe;IACf,yBAAyB;AAC7B,CAAC,CAAC"}
