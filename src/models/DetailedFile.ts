@@ -1,4 +1,7 @@
-interface DetailedFile {
+import * as WopiAction from '../utils/WopiAction'
+import * as models from './file';
+
+export interface DetailedFile extends models.File {
     UserId: string;
     CloseUrl: string;
     HostEditUrl: string;
@@ -23,5 +26,5 @@ interface DetailedFile {
     UserCanRename: boolean;
     UserCanWrite: boolean;
     WebEditingDisabled: boolean;
-    Actions: WopiAction[];
+    Actions: Array<WopiAction.WopiAction>;
 }

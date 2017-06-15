@@ -1,8 +1,8 @@
-/// <summary>
-/// Enumeration for the different types of WOPI Requests
-/// For more information see: https://wopi.readthedocs.org/projects/wopirest/en/latest/index.html
-/// </summary>
-enum WopiRequestType {
+// <summary>
+// Enumeration for the different types of WOPI Requests
+// For more information see: https://wopi.readthedocs.org/projects/wopirest/en/latest/index.html
+// </summary>
+export enum WopiRequestType {
         None,
         CheckFileInfo,
         GetFile,

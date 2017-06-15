@@ -1,4 +1,4 @@
-interface WopiProof {
+class WopiProof {
     oldvalue: string;
     oldmodulus: string;
     oldexponent: string;
@@ -6,3 +6,5 @@ interface WopiProof {
     modulus: string;
     exponent: string;
 }
+
+export = WopiProof;

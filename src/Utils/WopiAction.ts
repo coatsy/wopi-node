@@ -1,4 +1,4 @@
-interface WopiAction {
+export class WopiAction {
     app: string;
     favIconUrl: string;
     checkLicense: boolean;

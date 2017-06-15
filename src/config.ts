@@ -1,4 +1,4 @@
-class Constants {
+export class Constants {
 
     // WOPI Protocol Constants
     public static get WOPI_BASE_PATH() : string { return "/wopi/"; }
@@ -68,5 +68,3 @@ class Constants {
         Constants.WOPI_URL_PH_VALIDATOR_TEST_CATEGORY
         ] ; }
 }
-
-export = Constants;
