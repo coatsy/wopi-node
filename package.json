@@ -10,22 +10,27 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "express-validator": "^3.2.0",
+    "memory-cache": "^0.1.6",
     "morgan": "^1.8.2",
     "node-cache": "^4.1.1",
     "request": "^2.81.0",
-    "typescript": "^2.3.4"
+    "typescript": "^2.3.4",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.3",
     "@types/dotenv": "^4.0.0",
     "@types/express": "^4.0.35",
     "@types/express-session": "^1.15.0",
+    "@types/jquery": "^3.2.0",
     "@types/linq": "^2.2.33",
+    "@types/memory-cache": "0.0.29",
     "@types/morgan": "^1.7.32",
     "@types/node": "^7.0.31",
     "@types/node-cache": "^3.0.31",
     "@types/request": "0.0.43",
     "@types/xml": "^1.0.1",
+    "@types/xml2js": "0.0.33",
     "nodemon": "^1.11.0",
     "tslint": "^5.4.3"
   },

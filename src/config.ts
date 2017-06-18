@@ -67,4 +67,11 @@ export class Constants {
         Constants.WOPI_URL_PH_UI_LLCC, 
         Constants.WOPI_URL_PH_VALIDATOR_TEST_CATEGORY
         ] ; }
+
+    // Cache Keys and values
+    public static get WOPI_DISCOVERY_CACHE_KEY() : string { return "wopidisco"; }
+    public static get WOPI_DICCOVERY_CACHE_TTL() : number { return 3600000; } // 1 hr
+
+    // WOPI Discovery endpoint
+    public static get WOPI_DISCOVERY_ENDPOINT() : string { return 'https://onenote.officeapps-df.live.com/hosting/discovery'; }
 }
