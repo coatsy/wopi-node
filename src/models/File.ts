@@ -1,4 +1,4 @@
-export interface File {
+export class File {
     id: string;
     LockValue: string;
     LockExpires: Date;

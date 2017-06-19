@@ -8,7 +8,7 @@ import * as cache from 'memory-cache';
 import * as http from 'request';
 import * as xml2js from 'xml2js';
 
-export function PopulateActions(files: ReadonlyArray<models.DetailedFile>) {
+export function PopulateActions(files: Array<models.DetailedFile>) {
     if (files.length > 0)
     {
         files.forEach(file => {
@@ -31,7 +31,7 @@ export function PopulateActions(files: ReadonlyArray<models.DetailedFile>) {
         let actions : Array<WopiAction.WopiAction> = cache.get(config.Constants.WOPI_DISCOVERY_CACHE_KEY);
 
         // have we not already got the actions from WOPI Discovery?
-        if (actions == null) {
+        if (actions == null || actions.length == 0) {
 
             let rawXML: string = '';
 
@@ -46,18 +46,47 @@ export function PopulateActions(files: ReadonlyArray<models.DetailedFile>) {
                 xml2js.parseString(rawXML, {attrNameProcessors: [stripHyphens], tagNameProcessors: [stripHyphens]}, function(err, result) {
                 console.log(result);
                 console.log(result.wopidiscovery.netzone[0].app);
+
+                actions = new Array<WopiAction.WopiAction>();
+
+                for (var i = 0; i < result.wopidiscovery.netzone[0].app.length; i++) {
+                    var thisApp = result.wopidiscovery.netzone[0].app[i];
+                    
+                    for (var j = 0; j < thisApp.$.length; j++) {
+                        var thisAction = thisApp.$[j];
+
+                        let thisWopiAction = new WopiAction.WopiAction();
+                        thisWopiAction.app = thisApp.name;
+                        thisWopiAction.favIconUrl = thisApp.favIconUrl;
+                        thisWopiAction.checkLicense = (thisApp.checkLicense == 'True');
+                        thisWopiAction.name = thisAction.name;
+                        thisWopiAction.ext = (thisAction.ext != null) ? thisAction.ext : '';
+                        thisWopiAction.progId = (thisAction.progId != null) ? thisAction.progId : '';
+                        thisWopiAction.isDefault = (thisAction.default != null) ? true : false;
+                        thisWopiAction.urlsrc = thisAction.urlsrc;
+                        thisWopiAction.requires = (thisAction.requires != null) ? thisAction.requires : '';
+
+                        actions.push(thisWopiAction);
+                    }
+
+                }
+
+                // cache the actions
+                cache.put(config.Constants.WOPI_DISCOVERY_CACHE_KEY, actions, config.Constants.WOPI_DICCOVERY_CACHE_TTL);
+
+                let finalActions : ReadonlyArray<WopiAction.WopiAction> = actions;
+                return finalActions;
+
                 });
             });
             
 
             
-            // cache the actions
-            cache.put(config.Constants.WOPI_DISCOVERY_CACHE_KEY, actions, config.Constants.WOPI_DICCOVERY_CACHE_TTL);
+        } else {
+            let finalActions : ReadonlyArray<WopiAction.WopiAction> = actions;
+            return finalActions;
         }
 
-
-        let finalActions : ReadonlyArray<WopiAction.WopiAction> = actions;
-        return finalActions;
     }
 
         function stripHyphens(name: string){

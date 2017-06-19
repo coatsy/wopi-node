@@ -66,6 +66,11 @@ class Constants {
             Constants.WOPI_URL_PH_VALIDATOR_TEST_CATEGORY
         ];
     }
+    // Cache Keys and values
+    static get WOPI_DISCOVERY_CACHE_KEY() { return "wopidisco"; }
+    static get WOPI_DICCOVERY_CACHE_TTL() { return 3600000; } // 1 hr
+    // WOPI Discovery endpoint
+    static get WOPI_DISCOVERY_ENDPOINT() { return 'https://onenote.officeapps-df.live.com/hosting/discovery'; }
 }
 exports.Constants = Constants;
 //# sourceMappingURL=config.js.map

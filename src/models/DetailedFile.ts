@@ -1,7 +1,7 @@
 import * as WopiAction from '../utils/WopiAction'
 import * as models from './file';
 
-export interface DetailedFile extends models.File {
+export class DetailedFile extends models.File {
     UserId: string;
     CloseUrl: string;
     HostEditUrl: string;
