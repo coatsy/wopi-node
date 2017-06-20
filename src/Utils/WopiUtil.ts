@@ -1,12 +1,15 @@
 import * as config from '../config';
-import * as WopiAction from './WopiAction'
+import * as models from '../models/detailedfile';
+import { wopidiscoveryaction } from '../models/wopidiscoveryaction';
+import { wopidiscoveryapp } from '../models/wopidiscoveryapp';
+import * as WopiAction from './WopiAction';
 import * as path from 'path';
 import * as linq from 'linq';
-import * as models from '../models/detailedfile';
-import * as xml from 'xml';
 import * as cache from 'memory-cache';
 import * as http from 'request';
 import * as xml2js from 'xml2js';
+import * as wopidiscoveryactionweb from '../models/wopidiscoveryaction'
+import * as wopidiscoveryappweb from '../models/wopidiscoveryapp'
 
 export function PopulateActions(files: Array<models.DetailedFile>) {
     if (files.length > 0)
@@ -46,25 +49,29 @@ export function PopulateActions(files: Array<models.DetailedFile>) {
                 xml2js.parseString(rawXML, {attrNameProcessors: [stripHyphens], tagNameProcessors: [stripHyphens]}, function(err, result) {
                 console.log(result);
                 console.log(result.wopidiscovery.netzone[0].app);
+                console.log(result.wopidiscovery.netzone[0].app.length);
 
                 actions = new Array<WopiAction.WopiAction>();
 
                 for (var i = 0; i < result.wopidiscovery.netzone[0].app.length; i++) {
-                    var thisApp = result.wopidiscovery.netzone[0].app[i];
-                    
-                    for (var j = 0; j < thisApp.$.length; j++) {
-                        var thisAction = thisApp.$[j];
+                    let thisApp : wopidiscoveryappweb.wopidiscoveryapp = result.wopidiscovery.netzone[0].app[i];
+                    console.log(thisApp.$.name);
+
+                    for (var j = 0; j < thisApp.action.length; j++) {
+                        let thisAction : wopidiscoveryactionweb.wopidiscoveryaction = <wopidiscoveryactionweb.wopidiscoveryaction>thisApp.action[j];
+
+                        let myApp = thisApp;
 
                         let thisWopiAction = new WopiAction.WopiAction();
-                        thisWopiAction.app = thisApp.name;
-                        thisWopiAction.favIconUrl = thisApp.favIconUrl;
-                        thisWopiAction.checkLicense = (thisApp.checkLicense == 'True');
-                        thisWopiAction.name = thisAction.name;
-                        thisWopiAction.ext = (thisAction.ext != null) ? thisAction.ext : '';
-                        thisWopiAction.progId = (thisAction.progId != null) ? thisAction.progId : '';
-                        thisWopiAction.isDefault = (thisAction.default != null) ? true : false;
-                        thisWopiAction.urlsrc = thisAction.urlsrc;
-                        thisWopiAction.requires = (thisAction.requires != null) ? thisAction.requires : '';
+                        thisWopiAction.app = myApp.$.name;
+                        thisWopiAction.favIconUrl = myApp.$.favIconUrl;
+                        thisWopiAction.checkLicense = (myApp.$.checkLicense == 'True');
+                        thisWopiAction.name = thisAction.$.name;
+                        thisWopiAction.ext = (thisAction.$.ext != null) ? thisAction.$.ext : '';
+                        thisWopiAction.progId = (thisAction.$.progId != null) ? thisAction.$.progId : '';
+                        thisWopiAction.isDefault = (thisAction.$.default != null) ? true : false;
+                        thisWopiAction.urlsrc = thisAction.$.urlsrc;
+                        thisWopiAction.requires = (thisAction.$.requires != null) ? thisAction.$.requires : '';
 
                         actions.push(thisWopiAction);
                     }
@@ -75,6 +82,8 @@ export function PopulateActions(files: Array<models.DetailedFile>) {
                 cache.put(config.Constants.WOPI_DISCOVERY_CACHE_KEY, actions, config.Constants.WOPI_DICCOVERY_CACHE_TTL);
 
                 let finalActions : ReadonlyArray<WopiAction.WopiAction> = actions;
+                console.log('retrieved actions from wopi discovery endpoint');
+                console.log(actions);
                 return finalActions;
 
                 });
@@ -83,13 +92,16 @@ export function PopulateActions(files: Array<models.DetailedFile>) {
 
             
         } else {
+            console.log('got actions from cache');
+            console.log('actions');
             let finalActions : ReadonlyArray<WopiAction.WopiAction> = actions;
             return finalActions;
         }
 
     }
 
-        function stripHyphens(name: string){
+    function stripHyphens(name: string){
         return name.replace('-', '');
     }
+
 }
